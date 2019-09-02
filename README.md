@@ -1,24 +1,24 @@
-# README
+# This app is designed to be a twitter clone
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Getting Started
 
-Things you may want to cover:
+To get started with the app, clone the repo and then install the needed gems with bundler:
 
-* Ruby version
+```
+$ bundle install --without production
+```
 
-* System dependencies
+Next, migrate the database so tables are properly created:
+```
+$ rails db:migrate
+```
 
-* Configuration
+Finally, give the test suite a run to verify everything is up and running as expected:
+```
+$ rails test
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+If the suite passes, you should successfully be able to run the app in a local server:
+```
+$ rails s
+```
