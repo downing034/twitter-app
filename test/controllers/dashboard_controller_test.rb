@@ -6,26 +6,27 @@ class DashboardControllerTest < ActionDispatch::IntegrationTest
     @base_title = "Twitter App"
   end
 
-  test "should get root" do
-    get root_url
-    assert_response :success
-  end
-
   test "should get home" do
-    get dashboard_home_url
+    get root_path
     assert_response :success
     assert_select "title", "#{@base_title}"
   end
 
   test "should get help" do
-    get dashboard_help_url
+    get help_path
     assert_response :success
     assert_select "title", "Help | #{@base_title}"
   end
 
   test "should get about" do
-    get dashboard_about_url
+    get about_path
     assert_response :success
     assert_select "title", "About | #{@base_title}"
+  end
+
+  test "should get contact" do
+    get contact_path
+    assert_response :success
+    assert_select "title", "Contact | #{@base_title}"
   end
 end

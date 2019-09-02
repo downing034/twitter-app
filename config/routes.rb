@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   root 'dashboard#home'
-  get 'dashboard/home'
-  get 'dashboard/help'
-  get 'dashboard/about'
+  get '/help', to: 'dashboard#help'
+  get '/about', to: 'dashboard#about'
+  get '/contact', to: 'dashboard#contact'
 
-  resources :posts
-  resources :users
+  get '/signup', to: 'users#new'
+
+  # resources :posts
+  # resources :users
 end
