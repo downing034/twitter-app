@@ -80,11 +80,40 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.authenticated?(:remember, '')
   end
 
-  test "associated microposts should be destroyed" do
+  test "associated posts should be destroyed" do
     @user.save
     @user.posts.create!(content: "Lorem ipsum")
     assert_difference 'Post.count', -1 do
       @user.destroy
+    end
+  end
+
+  test "should follow and unfollow a user" do
+    paul = users(:paul)
+    paige  = users(:paige)
+    assert_not paul.following?(paige)
+    paul.follow(paige)
+    assert paul.following?(paige)
+    assert paige.followers.include?(paul)
+    paul.unfollow(paige)
+    assert_not paul.following?(paige)
+  end
+
+  test "feed should have the right posts" do
+    paul = users(:paul)
+    paige  = users(:paige)
+    potato    = users(:potato)
+    # Posts from followed user
+    potato.posts.each do |post_following|
+      assert paul.feed.include?(post_following)
+    end
+    # Posts from self
+    paul.posts.each do |post_self|
+      assert paul.feed.include?(post_self)
+    end
+    # Posts from unfollowed user
+    paige.posts.each do |post_unfollowed|
+      assert_not paul.feed.include?(post_unfollowed)
     end
   end
 end
